@@ -198,6 +198,47 @@ class PAdic:
 
         return order
 
+    def mul(self, multiplier):
+        # PAdic.checkForBaseEquality(this, multiplier);
+
+        # TODO
+        result = PAdic({
+                'sequence': [0]*PAdic.len,
+                'order': 0,
+                'recalculate': False
+            }, self.base, 'SEQUENCE')
+
+        for ind in range(0, PAdic.len, 1):
+            temp = self.multiply_to_integer(self.digits, multiplier.digits[ind])
+            adder = PAdic({
+                'sequence': temp,
+                'order': 0,
+                'recalculate': False
+            }, self.base, 'SEQUENCE')
+
+            result = result.add_by_offset(adder, ind)
+
+        minOrder = min(self.get_order(), multiplier.get_order())
+        maxOrder = max(self.get_order(), multiplier.get_order())
+
+        if minOrder < 0 and 0 < maxOrder:
+            pos = 0
+
+            while pos < -minOrder and result.digits[pos] == 0:
+                pos += 1
+
+            ind = 0
+            while ind + pos < PAdic.len:
+                result.digits[ind] = result.digits[ind + pos]
+                ind += 1
+        order = PAdic.calculate_order(result.digits, self.get_order(), multiplier.get_order(), 'MULTIPLICATION')
+
+        return PAdic({
+            'sequence': result.digits,
+            'order': order,
+            'recalculate': False
+        }, self.base, 'SEQUENCE')
+
     def multiply_to_integer(self, number, multiplier):
         to_next = 0
         result = [0] * self.len
@@ -389,11 +430,11 @@ class PAdic:
         while ind + offset < PAdic.len:
             next = int(self.digits[ind + offset]) + added.digits[ind] + to_next
             to_next = next / self.base
-            result[ind + offset] = next % self.base
+            result[ind + offset] = int(next) % self.base
             ind += 1
 
         order = PAdic.calculate_order(result, self.get_order(), added.get_order(), 'ADDITION')
-        print(order)
+
         return PAdic({
             'sequence': result,
             'order': order,
