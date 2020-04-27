@@ -1,26 +1,24 @@
-import math
+# -*- coding: utf-8 -*-
+# @Author: Alexander Sharov
 
 
-class PAdic:
-    len = 1 << 7
-    limit = int(len / 3) << 1
+class PAdic(object):
+    seq_len = 1 << 7
+    limit = int(seq_len / 3) << 1
+    precalculated_primes = (1 << 16)
+    is_prime = [False] * precalculated_primes
 
     def __init__(self, number, base, type='SIMPLE'):
-        # Padic.check_for_prime(base)
+        PAdic.check_for_prime(base)
         if type == 'SIMPLE':
             if "/" in str(number):
-
-                numerator = int(str(number).split('/')[0])
-                denominator = int(str(number).split('/')[1])
-
-                result = PAdic(numerator, base)/(PAdic(denominator, base))
-
+                numbers = number.split('/')
+                result = PAdic(int(numbers[0]), base) / (PAdic(int(numbers[1]), base))
                 self.digits = result.digits
                 self.order = result.order
                 self.base = result.base
-
             else:
-                self.digits = [0] * self.len
+                self.digits = [0] * PAdic.seq_len
                 self.base = base
 
                 value = str(number).strip()
@@ -44,7 +42,6 @@ class PAdic:
                     #   throw new RuntimeException("P-adic number cannot contain digits that are greater or equal to base.");
                     # }
 
-                    # print(value[pos_in_string])
                     self.digits[pos_in_digits] = value[pos_in_string]  # - '0'
 
                     pos_in_string -= 1
@@ -52,7 +49,7 @@ class PAdic:
 
                 pos = 0
 
-                while pos < self.len and self.digits[pos] == 0:
+                while pos < PAdic.seq_len and self.digits[pos] == 0:
                     pos += 1
 
                 order = ''
@@ -63,24 +60,22 @@ class PAdic:
                     if order < 0:
                         offset = min(-order, pos)
                         ind = 0
-                        while ind + offset < self.len:
+                        while ind + offset < PAdic.seq_len:
                             self.digits[ind] = self.digits[ind + offset]
                             ind += 1
                         order += offset
                 else:
-                    if pos == PAdic.len:
+                    if pos == PAdic.seq_len:
                         pos = 0
                     order = pos
                 self.order = order
         elif type == 'SEQUENCE':
-            # PAdic.checkForPrime(base);
-
             sequence = number['sequence']
             order = number['order']
             recalculate_sequence = number['recalculate']
 
             self.base = base
-            self.digits = [0] * PAdic.len
+            self.digits = [0] * PAdic.seq_len
             start_position = 0
             start_in_sequence = 0
 
@@ -98,7 +93,7 @@ class PAdic:
 
             pos_in_sequence = start_in_sequence
             ind = start_position
-            while pos_in_sequence < len(sequence) and ind < PAdic.len:
+            while pos_in_sequence < len(sequence) and ind < PAdic.seq_len:
 
                 if int(sequence[pos_in_sequence]) < 0:
                     print("P-adic number cannot be built from sequence that contains negative numbers.")
@@ -178,19 +173,19 @@ class PAdic:
 
         pos = 0
 
-        while pos < PAdic.len and digits[pos] == 0:
+        while pos < PAdic.seq_len and digits[pos] == 0:
             pos += 1
 
-        if pos == PAdic.len:
+        if pos == PAdic.seq_len:
             return 0
 
-        if 0 <= order and order < pos:
+        if 0 <= order < pos:
             order = pos
 
         if order < 0:
             minimum = min(-order, pos)
             ind = 0
-            while ind + minimum < PAdic.len:
+            while ind + minimum < PAdic.seq_len:
                 digits[ind] = digits[ind + minimum]
                 ind += 1
 
@@ -199,15 +194,15 @@ class PAdic:
         return order
 
     def __mul__(self, other):
-        # PAdic.checkForBaseEquality(this, multiplier);
+        PAdic.check_for_base_equality(self, other)
 
         result = PAdic({
-            'sequence': [0] * PAdic.len,
+            'sequence': [0] * PAdic.seq_len,
             'order': 0,
             'recalculate': False
         }, self.base, 'SEQUENCE')
 
-        for ind in range(0, PAdic.len, 1):
+        for ind in range(0, PAdic.seq_len, 1):
             temp = self.multiply_to_integer(self.digits, other.digits[ind])
             adder = PAdic({
                 'sequence': temp,
@@ -217,17 +212,17 @@ class PAdic:
 
             result = result.add_by_offset(adder, ind)
 
-        minOrder = min(self.get_order(), other.get_order())
-        maxOrder = max(self.get_order(), other.get_order())
+        min_order = min(self.get_order(), other.get_order())
+        max_order = max(self.get_order(), other.get_order())
 
-        if minOrder < 0 and 0 < maxOrder:
+        if min_order < 0 and 0 < max_order:
             pos = 0
 
-            while pos < -minOrder and result.digits[pos] == 0:
+            while pos < -min_order and result.digits[pos] == 0:
                 pos += 1
 
             ind = 0
-            while ind + pos < PAdic.len:
+            while ind + pos < PAdic.seq_len:
                 result.digits[ind] = result.digits[ind + pos]
                 ind += 1
         order = PAdic.calculate_order(result.digits, self.get_order(), other.get_order(), 'MULTIPLICATION')
@@ -240,7 +235,7 @@ class PAdic:
 
     def multiply_to_integer(self, number, multiplier):
         to_next = 0
-        result = [0] * self.len
+        result = [0] * PAdic.seq_len
         for ind in range(0, len(number), 1):
             next = int(number[ind]) * int(multiplier) + int(to_next)
             to_next = next / self.base
@@ -248,68 +243,65 @@ class PAdic:
         return result
 
     def __sub__(self, other):
-        # PAdic.checkForBaseEquality(this, subtracted);
+        PAdic.check_for_base_equality(self, other)
         actual = None
-        digits = [0] * PAdic.len
-        haveActual = False
+        digits = [0] * PAdic.seq_len
+        have_actual = False
 
         if other.get_order() < 0 and other.get_order() < self.get_order():
             diff = abs(other.get_order() - min(self.get_order(), 0))
 
-            ind = self.len - 1
+            ind = PAdic.seq_len - 1
             while ind - diff >= 0:
                 idx = ind - diff
                 digits[ind] = self.digits[idx]
                 ind -= 1
 
-            newOrder = min(self.get_order(), 0) - diff
+            new_order = min(self.get_order(), 0) - diff
             actual = PAdic({
                 'sequence': digits,
-                'order': newOrder,
+                'order': new_order,
                 'recalculate': True
             }, self.base, 'SEQUENCE')
 
-            haveActual = True
+            have_actual = True
 
-        if not haveActual:
+        if not have_actual:
             actual = self
 
         if actual.get_order() < 0 and other.get_order() >= 0:
             return actual.subtract_by_offset(other, -actual.get_order())
 
-        offset = 0
-
         if actual.get_order() < 0 or other.get_order() < 0:
-            leftOperandOrder = min(actual.get_order(), 0)
-            rightOperandOrder = min(other.get_order(), 0)
-            offset = abs(leftOperandOrder - rightOperandOrder)
+            left_operand_order = min(actual.get_order(), 0)
+            right_operand_order = min(other.get_order(), 0)
+            offset = abs(left_operand_order - right_operand_order)
         else:
             offset = 0
 
         return actual.subtract_by_offset(other, offset)
 
     def subtract_by_offset(self, subtracted, offset):
-        # PAdic.checkForBaseEquality(this, subtracted);
-        result = [0] * self.len
-        takeOne = True
+        PAdic.check_for_base_equality(self, subtracted)
+        result = [0] * PAdic.seq_len
 
         for ind in range(0, offset, 1):
             result[ind] = self.digits[ind]
 
         ind = 0
 
-        while ind + offset < self.len:
+        while ind + offset < PAdic.seq_len:
             idx = ind + offset
             if int(self.digits[idx]) < subtracted.digits[ind]:
-                takeOne = True
+                take_one = True
                 j = idx + 1
 
-                while j < self.len and takeOne:
+                while j < PAdic.seq_len and take_one:
                     if self.digits[j] == 0:
                         self.digits[j] = self.base - 1
                     else:
                         self.digits[j] -= 1
-                        takeOne = False
+                        take_one = False
                     j += 1
                 self.digits[idx] += self.base
             result[idx] = int(self.digits[idx]) - subtracted.digits[ind]
@@ -323,18 +315,17 @@ class PAdic:
             'recalculate': False
         }, self.base, 'SEQUENCE')
 
-
     def __truediv__(self, divisor):
-        result = [0] * self.len
-        divided_digits = [0] * self.len
-        divisor_digits = [0] * self.len
+        result = [0] * PAdic.seq_len
+        divided_digits = [0] * PAdic.seq_len
+        divisor_digits = [0] * PAdic.seq_len
         pos = 0
 
-        while pos < self.len and self.digits[pos] == 0 and divisor.digits[pos] == 0:
+        while pos < PAdic.seq_len and self.digits[pos] == 0 and divisor.digits[pos] == 0:
             pos += 1
 
         ind = 0
-        while ind + pos < self.len:
+        while ind + pos < PAdic.seq_len:
             divided_digits[ind] = self.digits[ind + pos]
             divisor_digits[ind] = divisor.digits[ind + pos]
             ind += 1
@@ -343,11 +334,11 @@ class PAdic:
         divisor_order = divisor.get_order() - pos
 
         pos = 0
-        while pos < self.len and divisor_digits[pos] == 0:
+        while pos < PAdic.seq_len and divisor_digits[pos] == 0:
             pos += 1
 
         ind = 0
-        while ind + pos < self.len:
+        while ind + pos < PAdic.seq_len:
             divisor_digits[ind] = divisor_digits[ind + pos]
             ind += 1
         divided_order -= pos
@@ -356,7 +347,7 @@ class PAdic:
         if divisor_order < 0 and divisor_order < divided_order:
             diff = min(divided_order, 0) - divisor_order
 
-            ind = self.len
+            ind = PAdic.seq_len
             while ind - diff >= 0:
                 idx = ind - diff
                 divided_digits[ind] = divided_digits[idx]
@@ -377,12 +368,11 @@ class PAdic:
             'recalculate': False
         }, self.base, 'SEQUENCE')
 
-        for ind in range(0, self.len, 1):
+        for ind in range(0, PAdic.seq_len, 1):
             digit = self.find_multiplier(divided.digits[ind], actual_divisor.digits[0])
 
-            # if (digit == -1) {
-            #    throw new RuntimeException("CALCULATION FAILED. Couldn't find multiplier x satisfying " + divided.digits[i] + " = x" + actualDivisor.digits[0] + " (mod " + this.base + ").");
-            # }
+            if digit == -1:
+                raise Exception("CALCULATION FAILED")
 
             tmp = self.multiply_to_integer(actual_divisor.digits, digit)
             result[ind] = digit
@@ -404,15 +394,15 @@ class PAdic:
 
     def __neg__(self):
         pos = 0
-        sequence = [0] * self.len
+        sequence = [0] * PAdic.seq_len
 
-        while pos < PAdic.len and self.digits[pos] == 0:
+        while pos < PAdic.seq_len and self.digits[pos] == 0:
             pos += 1
 
-        if pos < PAdic.len:
+        if pos < PAdic.seq_len:
             sequence[pos] = self.base - self.digits[pos]
 
-        for ind in range(pos + 1, PAdic.len, 1):
+        for ind in range(pos + 1, PAdic.seq_len, 1):
             sequence[ind] = self.base - self.digits[ind] - 1
 
         return PAdic({
@@ -422,16 +412,16 @@ class PAdic:
         }, self.base, 'SEQUENCE')
 
     def add_by_offset(self, added, offset):
-        # PAdic.checkForBaseEquality(this, added);
+        PAdic.check_for_base_equality(self, added)
 
-        result = [0] * PAdic.len
+        result = [0] * PAdic.seq_len
         to_next = 0
 
         for ind in range(0, offset, 1):
             result[ind] = self.digits[ind]
 
         ind = 0
-        while ind + offset < PAdic.len:
+        while ind + offset < PAdic.seq_len:
             next = int(self.digits[ind + offset]) + added.digits[ind] + to_next
             to_next = next / self.base
             result[ind + offset] = int(next) % self.base
@@ -446,7 +436,7 @@ class PAdic:
         }, self.base, 'SEQUENCE')
 
     def __add__(self, added):
-        # PAdic.checkForBaseEquality(this, added);
+        PAdic.check_for_base_equality(self, added)
         if self.order < 0 or added.get_order() < 0:
             left_operand_order = min(self.get_order(), 0)
             right_operand_order = min(added.get_order(), 0)
@@ -460,12 +450,27 @@ class PAdic:
 
         return self.add_by_offset(added, 0)
 
-    @staticmethod
-    def check_for_prime(self):
-        pass
-
     def find_multiplier(self, mod, multiplier):
         for ind in range(0, self.base, 1):
             if (int(multiplier) * ind) % self.base == int(mod):
                 return ind
         return -1
+
+    @staticmethod
+    def check_for_base_equality(first, second):
+        are_equal = (first.base == second.base)
+        if not are_equal:
+            raise Exception("Mathematical operations can be done only with p-adic numbers that have the same base")
+
+    @staticmethod
+    def check_for_prime(base):
+        if not base < PAdic.precalculated_primes:
+            raise Exception(
+                "Sorry, "
+                + base
+                + " is too large number to be a base. Enter a prime number that is less than "
+                + PAdic.precalculated_primes
+            )
+        is_prime_base = base > 1 and PAdic.is_prime[base]
+        if is_prime_base:
+            raise Exception("Base " + base + " is not prime. Base must be a prime number")
