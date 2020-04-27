@@ -13,17 +13,6 @@ class PAdic:
                 numerator = int(str(number).split('/')[0])
                 denominator = int(str(number).split('/')[1])
 
-                # gcd = math.gcd(abs(numerator), abs(denominator))
-                # actual_numerator = numerator / gcd
-                # actual_denominator = denominator / gcd
-                # padic_numerator = PAdic(actual_numerator, base)
-                # padic_denominator = PAdic(actual_denominator, base)
-                # result = padic_numerator.divide(padic_denominator)
-
-                # self.digits = result.digits
-                # self.order = result.order
-                # self.base = result.base
-
                 result = PAdic(numerator, base).divide(PAdic(denominator, base))
 
                 self.digits = result.digits
