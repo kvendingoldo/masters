@@ -1,0 +1,85 @@
+\begin{thebibliography}{10}
+\def\selectlanguageifdefined#1{
+\expandafter\ifx\csname date#1\endcsname\relax
+\else\selectlanguage{#1}\fi}
+\providecommand*{\href}[2]{{\small #2}}
+\providecommand*{\url}[1]{{\small #1}}
+\providecommand*{\BibUrl}[1]{\url{#1}}
+\providecommand{\BibAnnote}[1]{}
+\providecommand*{\BibEmph}[1]{#1}
+\ProvideTextCommandDefault{\cyrdash}{\hbox to.8em{--\hss--}}
+\providecommand*{\BibDash}{\ifdim\lastskip>0pt\unskip\nobreak\hskip.2em\fi
+\cyrdash\hskip.2em\ignorespaces}
+
+\bibitem{Openfoam::site}
+\selectlanguageifdefined{russian}
+Openfoam. \BibDash
+\newblock URL: \BibUrl{https://openfoam.org/} ({дата обращения}:
+  14.03.2017).
+
+\bibitem{Fletcher}
+\selectlanguageifdefined{russian}
+\BibEmph{Флетчер,~К.} Вычислительные методы в
+  динамике жидкостей. \BibDash
+\newblock М. Мир, 1991. \BibDash
+\newblock Т.~1. \BibDash
+\newblock {С.}~504.
+
+\bibitem{Peire}
+\selectlanguageifdefined{russian}
+\BibEmph{Пейре,~Р., Тейлор,~Т.~Д.} Вычислительные
+  методы в задачах механики жидкости. \BibDash
+\newblock Л. Гидрометеоиздат, 1986. \BibDash
+\newblock {С.}~352.
+
+\bibitem{Kochin}
+\selectlanguageifdefined{russian}
+\BibEmph{Кочин,~Н.~Е., Кибель,~И.~А., Розе,~Н.~В.}
+  Теоретическая гидромеханика. \BibDash
+\newblock М. Физматгиз, 1963. \BibDash
+\newblock Т.~2. \BibDash
+\newblock {С.}~728.
+
+\bibitem{Selivanov}
+\selectlanguageifdefined{russian}
+\BibEmph{Бабкин,~А.В., Селиванов,~В.В}. Основы
+  механики сплошной среды. \BibDash
+\newblock М. Изд-во МГТУ им. Н.Э. Баумана, 2004. \BibDash
+\newblock Т.~1. \BibDash
+\newblock {С.}~376.
+
+\bibitem{Rouch}
+\selectlanguageifdefined{russian}
+\BibEmph{Роуч,~П.} Вычислительная
+  гидродинамика. \BibDash
+\newblock М. Мир, 1980. \BibDash
+\newblock {С.}~618.
+
+\bibitem{Sedov}
+\selectlanguageifdefined{russian}
+\BibEmph{Седов,~Л.~И.} Механика сплошной среды.
+  \BibDash
+\newblock М. Наука, 1970. \BibDash
+\newblock Т.~1. \BibDash
+\newblock {С.}~492.
+
+\bibitem{Laduga::site}
+\selectlanguageifdefined{russian}
+Laduga. \BibDash
+\newblock URL: \BibUrl{http://ru.wiki.laduga.ru/} ({дата
+  обращения}: 14.03.2017).
+
+\bibitem{Uimech::site}
+\selectlanguageifdefined{russian}
+Uimech. \BibDash
+\newblock URL: \BibUrl{http://ru.uimech.org/node/253} ({дата
+  обращения}: 14.03.2017).
+
+\bibitem{Rau::site}
+\selectlanguageifdefined{russian}
+Rau. \BibDash
+\newblock URL:
+  \BibUrl{http://www.rau.am/fiz_osnovy_mexaniki/Lections/L19/L19-6.htm}
+  ({дата обращения}: 14.03.2017).
+
+\end{thebibliography}
