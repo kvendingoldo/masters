@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 # @Author: Alexander Sharov
 
+import copy
 
 class PAdic(object):
     seq_len = 1 << 7
@@ -267,7 +268,7 @@ class PAdic(object):
             have_actual = True
 
         if not have_actual:
-            actual = self
+            actual = copy.deepcopy(self)
 
         if actual.get_order() < 0 and other.get_order() >= 0:
             return actual.subtract_by_offset(other, -actual.get_order())
@@ -292,7 +293,7 @@ class PAdic(object):
 
         while ind + offset < PAdic.seq_len:
             idx = ind + offset
-            if int(self.digits[idx]) < subtracted.digits[ind]:
+            if int(self.digits[idx]) < int(subtracted.digits[ind]):
                 take_one = True
                 j = idx + 1
 
@@ -304,7 +305,7 @@ class PAdic(object):
                         take_one = False
                     j += 1
                 self.digits[idx] += self.base
-            result[idx] = int(self.digits[idx]) - subtracted.digits[ind]
+            result[idx] = int(self.digits[idx]) - int(subtracted.digits[ind])
 
             ind += 1
         order = PAdic.calculate_order(result, self.get_order(), subtracted.get_order(), "SUBTRACTION")
@@ -422,7 +423,7 @@ class PAdic(object):
 
         ind = 0
         while ind + offset < PAdic.seq_len:
-            next = int(self.digits[ind + offset]) + added.digits[ind] + to_next
+            next = int(self.digits[ind + offset]) + int(added.digits[ind]) + to_next
             to_next = next / self.base
             result[ind + offset] = int(next) % self.base
             ind += 1
