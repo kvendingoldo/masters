@@ -32,8 +32,8 @@ m2[1] = [PAdic("7", 2),PAdic("8", 2)]
 
 #m3 = m1 + m2
 #m4 = m1 - m2
-m5 = m1 * m2
+#m5 = m1 * m2
 
 #print(m3)
 #print(m4)
-print(m5)
+#print(m5)

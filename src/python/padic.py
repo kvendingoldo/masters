@@ -3,14 +3,17 @@
 
 import copy
 
+
 class PAdic(object):
     seq_len = 1 << 7
     limit = int(seq_len / 3) << 1
     precalculated_primes = (1 << 16)
     is_prime = [False] * precalculated_primes
+    #PAdic.do_eratosthene_sieve([False] * precalculated_primes, precalculated_primes)
 
     def __init__(self, number, base, type='SIMPLE'):
         PAdic.check_for_prime(base)
+
         if type == 'SIMPLE':
             if "/" in str(number):
                 numbers = number.split('/')
@@ -456,6 +459,24 @@ class PAdic(object):
             if (int(multiplier) * ind) % self.base == int(mod):
                 return ind
         return -1
+
+    @staticmethod
+    def do_eratosthene_sieve(is_prime, precalculated_primes):
+        is_prime = [True] * precalculated_primes
+        is_prime[0] = is_prime[1] = False
+
+        ind = 2
+
+        while ind * ind < precalculated_primes:
+            if not is_prime[ind]:
+                ind += 1
+                continue
+
+            for jnd in range(ind + ind, precalculated_primes, ind):
+                is_prime[jnd] = False
+
+            ind += 1
+        return is_prime
 
     @staticmethod
     def check_for_base_equality(first, second):
