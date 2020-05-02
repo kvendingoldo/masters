@@ -108,6 +108,9 @@ class PAdic(object):
                 pos_in_sequence += 1
             self.order = order
 
+    def __repr__(self):
+        pass
+
     def __str__(self):
         result = ''
         one_digit_base = self.base <= 7
@@ -395,6 +398,9 @@ class PAdic(object):
         }
 
         return PAdic(number, self.base, 'SEQUENCE')
+
+    def __pos__(self):
+        pass
 
     def __neg__(self):
         pos = 0

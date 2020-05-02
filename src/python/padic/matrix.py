@@ -1,5 +1,6 @@
-from padic import *
+from padic.padic import *
 import random
+import copy
 
 
 class Matrix(object):
@@ -136,8 +137,30 @@ class Matrix(object):
         """ Test equality """
         return other.rows == self.rows
 
+    @staticmethod
+    def determinant(A, total=0):
+        dim = len(A.rows)
+        indices = list(range(dim))
+
+        if dim == 2 and len(A[0]) == 2:
+            val = A[0][0] * A[1][1] - A[1][0] * A[0][1]
+            return val
+
+        for fc in indices:
+            As = copy.deepcopy(A)
+            As = As[1:]
+            height = len(As)
+
+            for i in range(height):
+                As[i] = As[i][0:fc] + As[i][fc + 1:]
+
+            sign = (-1) ** (fc % 2)
+            sub_det = Matrix.determinant(As)
+            total += sign * A[0][fc] * sub_det
+        return total
+
     @classmethod
-    def _makeMatrix(cls, rows):
+    def make_matrix(cls, rows):
 
         m = len(rows)
         n = len(rows[0])
@@ -148,7 +171,7 @@ class Matrix(object):
         mat.rows = rows
 
     @classmethod
-    def makeRandom(cls, m, n, low=0, high=10):
+    def make_random(cls, m, n, low=0, high=10):
         """ Make a random matrix with elements in range (low-high) """
 
         obj = Matrix(m, n, init=False)
@@ -158,14 +181,14 @@ class Matrix(object):
         return obj
 
     @classmethod
-    def makeZero(cls, m, n):
+    def make_zero(cls, m, n):
         """ Make a zero-matrix of rank (mxn) """
 
         rows = [[0] * n for x in range(m)]
         return cls.fromList(rows)
 
     @classmethod
-    def makeId(cls, m):
+    def make_id(cls, m):
         """ Make identity matrix of rank (mxm) """
 
         rows = [[0] * m for x in range(m)]
