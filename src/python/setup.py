@@ -3,12 +3,12 @@
 
 from setuptools import setup
 
-setup(name='fem',
-      version='1.1',
-      description='Finite elements method for shallow water equations',
-      url='https://github.com/kvendingoldo/diploma',
+setup(name='padic',
+      version='1.0',
+      description='P-adic arithmetic library',
+      url='https://github.com/kvendingoldo/masters',
       author='Alexander Sharov',
       author_email='kvendingoldo@gmail.com',
       license='MIT',
-      packages=['fem'],
+      packages=['padic'],
       zip_safe=False)

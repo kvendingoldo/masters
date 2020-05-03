@@ -1,4 +1,8 @@
+# -*- coding: utf-8 -*-
+# @Author: Alexander Sharov
+
 from padic.padic import *
+
 import random
 import copy
 

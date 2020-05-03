@@ -1,16 +1,19 @@
+# -*- coding: utf-8 -*-
+# @Author: Alexander Sharov
+
 from padic.padic import *
 from padic.matrix import *
 import copy
 
 
-def cramer(A, B):
+def cramer(A, b):
     C = copy.copy(A)
-    B_len = len(B)
+    b_len = len(b)
     X = []
 
-    for i in range(0, B_len):
-        for j in range(0, B_len):
-            C[j][i] = B[j]
+    for i in range(0, b_len):
+        for j in range(0, b_len):
+            C[j][i] = b[j]
             if i > 0:
                 C[j][i - 1] = A[j][i - 1]
         print(type(C))
