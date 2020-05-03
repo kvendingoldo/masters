@@ -413,7 +413,7 @@ class PAdic(object):
             pos += 1
 
         if pos < PAdic.seq_len:
-            sequence[pos] = self.base - self.digits[pos]
+            sequence[pos] = self.base - int(self.digits[pos])
 
         for ind in range(pos + 1, PAdic.seq_len, 1):
             sequence[ind] = self.base - self.digits[ind] - 1
