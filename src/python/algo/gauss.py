@@ -36,18 +36,3 @@ def gauss(A):
         for k in range(i - 1, -1, -1):
             A[k][n] -= A[k][i] * x[i]
     return x
-
-
-if __name__ == "__main__":
-
-    A = ([[3,-2,-6],[5,1,3]])
-        #([[1, -1, 2, 0], [2, 1, -3, 0], [3, 0, 2, 0]])
-
-    # Calculate solution
-    x = gauss(A)
-
-    # Print result
-    line = "Result:\t"
-    for i in range(0, len(A)):
-        line += str(x[i]) + "\t"
-    print(line)
