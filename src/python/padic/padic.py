@@ -9,7 +9,8 @@ class PAdic(object):
     limit = int(seq_len / 3) << 1
     precalculated_primes = (1 << 16)
     is_prime = [False] * precalculated_primes
-    #PAdic.do_eratosthene_sieve([False] * precalculated_primes, precalculated_primes)
+
+    # PAdic.do_eratosthene_sieve([False] * precalculated_primes, precalculated_primes)
 
     def __init__(self, number, base, type='SIMPLE'):
         PAdic.check_for_prime(base)
@@ -47,7 +48,6 @@ class PAdic(object):
                     # }
 
                     self.digits[pos_in_digits] = value[pos_in_string]  # - '0'
-
                     pos_in_string -= 1
                     pos_in_digits += 1
 
@@ -107,6 +107,9 @@ class PAdic(object):
                 ind += 1
                 pos_in_sequence += 1
             self.order = order
+
+    def __eq__(self, other):
+        return self.order == other.order and self.digits == other.digits
 
     def __repr__(self):
         pass

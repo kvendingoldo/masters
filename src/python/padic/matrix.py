@@ -13,6 +13,16 @@ class Matrix(object):
         self.m = m
         self.n = n
 
+    def __copy__(self):
+        m = Matrix(self.n, self.m, init=False)
+        m.rows = copy.copy(self.rows)
+        return m
+
+    def __deepcopy__(self):
+        m = Matrix(self.n, self.m, init=False)
+        m.rows = copy.deepcopy(self.rows)
+        return m
+
     def __str__(self):
         s = '\n'.join([' '.join([str(item) for item in row]) for row in self.rows])
         return s + '\n'
@@ -31,6 +41,12 @@ class Matrix(object):
 
     def get_rank(self):
         return self.m, self.n
+
+    def get_size(self):
+        if self.m == self.n:
+            return self.m
+        else:
+            return 0
 
     def reset(self):
         """ Reset the matrix data """
@@ -138,7 +154,7 @@ class Matrix(object):
         return other.rows == self.rows
 
     @staticmethod
-    def determinant(A, total=0):
+    def determinant(A, total=PAdic("0", 5)):
         dim = len(A.rows)
         indices = list(range(dim))
 
@@ -147,16 +163,25 @@ class Matrix(object):
             return val
 
         for fc in indices:
-            As = copy.deepcopy(A)
+            As = copy.copy(A)
             As = As[1:]
             height = len(As)
 
             for i in range(height):
                 As[i] = As[i][0:fc] + As[i][fc + 1:]
 
-            sign = (-1) ** (fc % 2)
-            sub_det = Matrix.determinant(As)
-            total += sign * A[0][fc] * sub_det
+            sign_val = (-1) ** (fc % 2)
+            sign = PAdic(str(sign_val), 5)
+
+            m_size = A.get_size() - 1
+            m = Matrix(m_size, m_size)
+            m[0] = As[0]
+            m[1] = As[1]
+
+            sub_det_val = Matrix.determinant(m)
+            sub_det = PAdic(str(sub_det_val), 5)
+
+            total = total + sign * A[0][fc] * sub_det
         return total
 
     @classmethod

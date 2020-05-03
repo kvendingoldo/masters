@@ -1,5 +1,5 @@
 import copy
-
+import datetime
 
 def determinant_recursive(A, total=0):
     # Section 1: store indices in list for row referencing
@@ -31,6 +31,7 @@ def determinant_recursive(A, total=0):
 
     return total
 
-
+print(datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S_%f"))
 print(determinant_recursive([[1, 2], [3, 4]]))
+print(datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S_%f"))
 # [[1, 2, 3], [3, 4, 5], [6, 7, 8]]))

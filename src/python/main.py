@@ -1,3 +1,4 @@
+import datetime
 from padic.padic import *
 from padic.matrix import *
 
@@ -24,8 +25,8 @@ print(str(-PAdic("1/2", 5)))
 m1 = Matrix(2, 2)
 #m2 = Matrix(2, 2)
 
-m1[0] = [PAdic("1", 5),PAdic("0", 5)]
-m1[1] = [PAdic("0", 5),PAdic("4", 5)]
+m1[0] = [PAdic("1", 7),PAdic("0", 7)]
+m1[1] = [PAdic("0", 7),PAdic("4", 7)]
 
 #m2[0] = [PAdic("5", 2),PAdic("6", 2)]
 #m2[1] = [PAdic("7", 2),PAdic("8", 2)]
@@ -36,4 +37,6 @@ m1[1] = [PAdic("0", 5),PAdic("4", 5)]
 
 #print(m3)
 #print(m4)
+print(datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S_%f"))
 print(Matrix.determinant(m1))
+print(datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S_%f"))

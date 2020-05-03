@@ -1,0 +1,14 @@
+set terminal svg size 400,300 enhanced fname 'arial'  fsize 10 butt solid
+set output 'out.svg'
+set style data histograms
+set xtic rotate by -45 scale 0
+
+## tics and labels
+set boxwidth 0.9
+set style fill solid 0.5 #fillstyle
+set tics out nomirror
+set xlabel "x"
+set ylabel "секунды"
+
+plot  "data.txt" u 2:xtic(1) with boxes notitle
+#($1,$2):(1.0) smooth freq w boxes lc rgb"green" notitle
