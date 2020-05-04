@@ -21,6 +21,10 @@
 
 \usepackage{listings}
 
+
+\usepackage{longtable,rotating}
+\usepackage{threeparttable}
+
 % для кода
 \usepackage{fancyvrb}
 \DefineShortVerb{\|}
@@ -78,6 +82,7 @@
 	\item Множество из $\mathbb {R}^n$ называется компактом, если из любой последовательности его точек можно выделить сходящуюся подпоследовательность, предел которой принадлежит этому множеству.
 	\item Локально компактное пространство — топологическое пространство, у каждой точки которого существует открытая окрестность, замыкание которой компактно.
 	\item Размерностью полного метрического пространства $X$ называется наименьшее целое число $n$ такое, что для любого покрытия пространства $X$ существуют вписанное в него подпокрытие кратности $n+1$.
+	\item ЯП - язык программирования
 	\item ООП - объектно-ориентированное программирование.
 	\item Статический метод - метод который не имеет доступа к данным объекта, и для его использования не нужно создавать экземпляры класса.
 \end{enumerate}
@@ -929,6 +934,75 @@ $$
 \section{Сравнение производительности классических и $p$-адических арифметических операций}
 \subsection{Решение СЛАУ}
 \subsection{Решение ОДУ}
+Для сравнения методов возьмем дифференциальное уравнение падающей сферы:
+
+
+\begin{equation}
+\begin{aligned}
+\dfrac{\partial z}{ \partial t} = v \\
+\dfrac{\partial v}{ \partial t} = g - \alpha v^2
+\end{aligned}
+\end{equation}
+
+\noindent где
+
+\begin{equation}
+\begin{aligned}
+\alpha = \frac{3\rho_f}{4\rho_k d}C_d
+\end{aligned}
+\end{equation}
+
+аналитическое решение данного уравнения при $z(0)=0$ и $v(0)=0$ будет следующее:
+
+\begin{equation}
+\begin{aligned}
+z(t)=\frac{ln(cosh(\sqrt{\alpha g} \cdot t)}{\alpha} \\
+v(t)=\sqrt{\frac{g}{\alpha}} \cdot tanh{\sqrt{\alpha g} \cdot t)}
+\end{aligned}
+\end{equation}
+
+Конечная скорость $v_t$ находится из уравнения $\frac{\partial v}{ \partial t}$ и равна $v_t=\sqrt{\frac{g}{\alpha}}$.
+
+В качестве данный для эксперимента будем использовать параметры мяча для гольфа:
+
+
+\begin{threeparttable}
+\begin{longtable}[H]{lp{0.7\linewidth}}
+{$d$} -- диаметр шара & 41 [мм] \\
+{$\rho_k$} -- плотность сферы & 1275 [кг/м\textsuperscript{3}] \\
+{$\rho_f$} -- плотность жидкости & 1.22 [кг/м\textsuperscript{3}] \\
+{$C_d$} -- коэффициент трения & 0.4 
+\end{longtable} 
+\end{threeparttable}
+
+
+При этих параметрах $\alpha$=$7 \cdot 10^{-3}$, а конечная скорость становится равной $v_t=\sqrt{\frac{g}{\alpha}}=37.44$.
+
+
+Для сравнения методов будет использоваться схема метода Рунге-Кутты 4-го порядка:
+
+\begin{equation}%\label{eq:task:2}
+\begin{aligned}
+k_1 = f(x_n, y_n) \\
+k_2 = f(x_n+\frac{h}{2}, y_n+\frac{h}{2}k_1) \\
+k_3 = f(x_n+\frac{h}{2}, y_n+\frac{h}{2}k_2) \\ 
+k_4 = f(x_n+h, y_n+hk_3) \\
+y_{n+1}=y_n+\frac{h}{6}(k_1+2k_2+2k3+k_4)
+\end{aligned}
+\end{equation}
+
+
+И схема метода Эйлера:
+
+\begin{equation}%\label{eq:task:2}
+\begin{aligned}
+y_{n+1}=y_n+h \cdot f(x_n, y_n)
+\end{aligned}
+\end{equation}
+
+
+
+
 \subsection{Вычисление $e^{Ax}$}
 
 
