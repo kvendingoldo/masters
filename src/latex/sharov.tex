@@ -60,6 +60,11 @@
 \SetKwRepeat{Repeat}{повторять}{до тех пор, пока}
 \SetAlgorithmName{Алгоритм}{алгоритм}{Список алгоритмов}
 
+\algrenewcommand\algorithmicfunction{\textbf{Функция}}
+\algrenewcommand\algorithmicprocedure{\textbf{Процедура}}
+\algrenewtext{EndFunction}{\textbf{Конец функции}}
+\algrenewtext{EndProcedure}{\textbf{Конец процедуры}}
+
 \begin{document}
 
 % Кафедра (в родительном падеже)
@@ -940,7 +945,7 @@ print(X)
 
 \subsection{Сравнение производительности классических и $p$-адических \mbox{методов}}
 
-\subsubsection{Вычисления опеределителя матрицы}
+\subsubsection{Вычисление опеределителя матрицы}
 
 Для сравнения производительности классического и $p$-адического метода вычисления определителя матрицы вычислим определитель для случайно сгенерированной матрицы $\boldsymbol{A}$, где коэффициенты вычисляются следующим образом:
 $$
@@ -1037,6 +1042,8 @@ $$
  %-------------------------------------------------------------------%
 \section{Разработка многопоточной библиотеки для работы с $p$-адической арифметикой}
 
+\subsection{Описание алгоритмов для арифметических операций}
+
 \subsection{Многопоточный метод решения СЛАУ}
 Стандартная схема вычисления вектора $\boldsymbol{x}$ для СЛАУ $\boldsymbol{A}\cdot \boldsymbol{x} = b$ содержит представление рациональных чисел с помощью $p$-адических чисел в виде кода Гензеля и выполнении операций над данными числами. Однако, как видно из теоремы \ref{th:backward_mapping} представление чисел в виде кода Гензеля $\mathbb{H}_{p,r}$ возможно только когда ожидаемый результат будет принадлежать множеству $\mathbb{F}_{p,r}$. Это значит, что неоходимо произвести правильный выбор чисел $p$ и $r$.
 
@@ -1082,9 +1089,6 @@ n!a^b \leq \sqrt{\frac{p^r-1}{2}}.
 r \geq log_p(2{(n!a^n)}^2+1).
 \end{equation}
 
-
-
-
 Известно, что неравенство Адамара рассмотренное в например \cite{bib:numbers:mignotte} и \cite{bib:numbers:marcus} представляет следующее ограничение для определителя:
 
 \begin{equation}
@@ -1102,20 +1106,20 @@ p^r \leq \sum\limits_{i=1}^{n} {\mid b_i \mid} \prod\limits_{i=1}^{n}{\bigg(\sum
 \begin{thethm}
 Пусть $n_1,n_2,\dots, n_k$ - натуральные попарно взаимно простые числа, а $r_1,r_2,\dots,r_k$ - некоторые целые числа, тогда существует такое целое число $M$, что оно будет решением системы сравнений:
 
-$$
+\begin{equation}
 \begin{cases} 
 M \equiv r_1 \pmod {n_1}, \\
 M \equiv r_2 \pmod {n_2}, \\
 \dots \\
 M \equiv r_k \pmod {n_k}.
 \end{cases}
-$$
+\end{equation}
 
 \noindent При этом для любых двух решений $A$ и $B$ этой системы справедливо
 
-$$
+\begin{equation}
 A \equiv B \pmod {n_1,n_2,\dots,n_k},
-$$
+\end{equation}
 
 \noindent то есть решение системы сравнений существует и единственно по модулю $n_1,n_2,\dots,n_k$.
 \end{thethm}
@@ -1177,16 +1181,116 @@ l := 0\;
 В случае с матрицами больших размерностей, в разы больших, чем количество доступных процессоров, могут быть использованы стандартные методы для распараллеливания матричных операций.
 
 
-\subsection{Описание алгоритмов для арифметических операций}
-\subsection{Сравнение производительности однопоточной и многопоточной библиотеки} 
+\subsection{Многопоточный метод для вычисления собственных значений и собственных векторов}
+
+
+KEK LOL
+
+\begin{algorithm}
+\DontPrintSemicolon % Some LaTeX compilers require you to use \dontprintsemicolon instead
+
+\KwIn{ $n$: степень системы \newline
+       $A=(a_{i,j}) \in \mathbb{Q}^{n \times n}$: симметричная, $\dim(A)=n \times n$ \newline
+       $p$: простое число }
+
+\KwOut{ $\lambda$: вектор содержащий все собственные значения матрицы $A$ \newline
+        $x$: список содержащий все собственные вектора матрицы $A$ }
+
+\Begin {
+Найти максимум $a$ среди числителей и знаменателей среди чисел входящих в состав $A$.
+
+Вычислить порядок числа $r$ по формуле (6).
+
+Преобразовать числа входящие из $A$ в код Гензеля $H_{p,r}$.
+
+Инициализацировать $e, E$ и массивы $ind, changed$.
+
+$E := I; \; state := n;$
+
+\For{$k \gets 1$ \textbf{to} $n$} {
+	$ind_k := maxind(k); \; e_k := S_{kk}; \; changed_k$ := true 
+}
+
+\While{$state \neq 0$} {
+	$m := 1$
+	
+	%! find index (k,l) of pivot p
+	\For{$k \gets 2$ \textbf{to} $n-1$} {
+		\lIf{ \abs{S_{k,ind_{k}}} > \abs{S_{m,ind_{m}}} } {
+			$m := k$
+		}
+	}
+	$k := m; \; l := ind_m; \; p := S_{kl};$
+	
+	$c = \cos(\phi); \; s = \sin(\phi);$
+	
+    $y := (e_l-e_k)/2; \; d := \mid y \mid +\sqrt{p_2+y_2};$
+    
+    $r := \sqrt{p_2+d_2}; c := d/r; \; s := p/r; t := p_2/d;$
+   	
+   	\lIf{ y < 0 } {
+		$s := -s; t := -t$
+	}
+	
+	$S_kl := 0;$ 
+	
+	$update(k,-t); \; update(l,t)$
+	
+	%! rotate rows and columns k and l
+	\lFor{$i \gets 1$ \textbf{to} $k-1$} {
+		$rotate(i,k,i,l)$
+	}
+	\lFor{$i \gets k+1$ \textbf{to} $l-1$} {
+		$rotate(k,i,i,l)$
+	}
+	\lFor{$i \gets l+1$ \textbf{to} $n$} {
+		$rotate(k,i,l,i)$
+	}
+	%! rotate eigenvectors
+	
+	\lFor{$i \gets 1$ \textbf{to} $n$} {
+	$$
+	\begin{pmatrix}
+	  E_{ik} 
+	  E_{il} 
+	\end{pmatrix}
+	:=
+	\begin{pmatrix}
+	  c & -s \\
+	  s & c
+	\end{pmatrix}
+	\cdot
+	\begin{pmatrix}
+	  E_{ik} 
+	  E_{il} 
+	\end{pmatrix}
+	$$
+	}
+	%! rows k, l have changed, update rows indk, indl
+    $ind_k := maxind(k); \; ind_l := maxind(l);$
+}
+}
+Восстановить $H_{p,r}(x_1), \cdots, H_{p,r}(x_n)$ и $H_{p,r}(\lambda_1), \cdots, H_{\lambda,r}(\lambda_n)$.
+\caption{Алгоритм Якоби для $p$-адической арифметики.}
+\end{algorithm}
+
+
+
+
+
+
+
+
+
 
 
 %-------------------------------------------------------------------%
-\section{Сравнение производительности классических и $p$-адических арифметических операций}
+\section{Сравнение производительности классических и $p$-адических методов на примере прикладных задач}
 \subsection{Решение СЛАУ}
 TODO
 
-\subsection{Вычисления собственных значений и собственных векторов}
+\subsection{TODO}
+%{Вычисление собственных значений и собственных векторов
 Сравнение вычисления собственных значений и собственных векторов симметричной матрицы $A$ будем производить с помощью итерационного метода Якоби называемого методом вращений, который основан на приведении матрицы $A$ к диагональному виду.
 
 Идея метода Якоби состоит в том, чтобы обнулять недиагональные элементы вращениями до тех пор, пока они все не обнулятся и получится диагональная матрица. После каждого вращения сумма квадратов внедиагональных элементов уменьшается, что приводит к сходимости процесса диагональности. 
@@ -1284,8 +1388,65 @@ TODO
 \appendix
 
 \section{Исходный код библиотеки для работы с $p$-адической арифметикой}
+todo
 
-тут будет код
+\section{Вспомогательные функции для метода Якоби}
+\begin{algorithm}
+\DontPrintSemicolon % Some LaTeX compilers require you to use \dontprintsemicolon instead
+\KwIn{ $k$ }
+\Begin {
+	$m$ := $k+1$
+	\For{$i \gets k+2$ \textbf{to} $n$} {
+		\If{ \abs{S_{ki}} > \abs{S_{km}} } {
+			$m := i$ 
+		}
+	}
+	\Return m
+}
+\caption{функция $maxind$}
+\end{algorithm}
+
+\begin{algorithm}
+\DontPrintSemicolon % Some LaTeX compilers require you to use \dontprintsemicolon instead
+\KwIn{ $k, l, i, j$ }
+\Begin {
+$$
+\begin{pmatrix}
+  S_{kl} 
+  S_{ij} 
+\end{pmatrix}
+:=
+\begin{pmatrix}
+  c & -s \\
+  s & c
+\end{pmatrix}
+\cdot
+\begin{pmatrix}
+  S_{kl} 
+  S_{ij} 
+\end{pmatrix}
+$$
+}
+\caption{процедура $rotate$}
+\end{algorithm}
+
+\begin{algorithm}
+\DontPrintSemicolon % Some LaTeX compilers require you to use \dontprintsemicolon instead
+\KwIn{ $k, t$ }
+\Begin {
+$y := e_k$ 
+$e_k := y+t$
+\If{$changed_k$ И ($y=e_k$)} {
+	$changed_k$ := false
+	state := state-1
+}
+\If {не $changed_k$) И ($y \neq e_k$)} {
+	$changed_k$ := true
+	state := state+1
+}
+}
+\caption{функция $update$}
+\end{algorithm}
 
 
 \end{document}
