@@ -12,7 +12,7 @@ set boxwidth 0.8
 set style fill solid 0.45 #fillstyle
 set tics out nomirror
 set xlabel ""
-set ylabel "секунды"
+set ylabel "Время (секунды)"
 
 plot "data.txt" using 2:xtic(1) with boxes notitle lt rgb "blue"
 #($1,$2):(1.0) smooth freq w boxes lc rgb"green" notitle
