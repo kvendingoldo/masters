@@ -13,4 +13,4 @@ set xtics 0,10
 
 #set title 'Some Data'
 
-plot "data.txt" using 1:2 title 'scipy' with linespoints linestyle 1 linecolor 10, "data.txt" using 1:3 title 'ℤ_2' with linespoints linestyle 1 linecolor 10, "data.txt" using 1:4 title 'ℤ_3' with linespoints linestyle 1 linecolor 7, "data.txt" using 1:5 title 'ℤ_5' with linespoints linestyle 1 linecolor 6, "data.txt" using 1:6 title 'ℤ_7' with linespoints linestyle 1 linecolor 5
+plot "data.txt" using 1:2 title 'scipy' with linespoints linestyle 1 linecolor 9, "data.txt" using 1:3 title 'ℤ_2' with linespoints linestyle 1 linecolor 10, "data.txt" using 1:4 title 'ℤ_3' with linespoints linestyle 1 linecolor 7, "data.txt" using 1:5 title 'ℤ_5' with linespoints linestyle 1 linecolor 6, "data.txt" using 1:6 title 'ℤ_7' with linespoints linestyle 1 linecolor 5
