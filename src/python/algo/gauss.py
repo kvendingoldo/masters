@@ -6,9 +6,9 @@ def gauss(A):
     n = len(A)
 
     for i in range(0, n):
-
         max_elem = abs(A[i][i])
         max_row = i
+
         for k in range(i + 1, n):
             if abs(A[k][i]) > max_elem:
                 max_elem = abs(A[k][i])
@@ -32,4 +32,5 @@ def gauss(A):
         x[i] = A[i][n] / A[i][i]
         for k in range(i - 1, -1, -1):
             A[k][n] -= A[k][i] * x[i]
+
     return x
