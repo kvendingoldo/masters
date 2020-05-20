@@ -313,7 +313,7 @@ class PAdic(object):
                         self.digits[j] -= 1
                         take_one = False
                     j += 1
-                self.digits[idx] += self.base
+                self.digits[idx] = int(self.digits[idx])+int(self.base)
             result[idx] = int(self.digits[idx]) - int(subtracted.digits[ind])
 
             ind += 1

@@ -3,16 +3,18 @@ set output 'out.svg'
 set style data histograms
 set xtic rotate by -25 scale 1
 
+set grid
 set bmargin 4
+set boxwidth 0.8
+set style fill solid 0.65
+set yrange [0:0.6]
+set ytics 0,0.05,0.6
 
 ## tics and labels
 set ytics offset 0,graph 0.01
 
-set boxwidth 0.8
-set style fill solid 0.45 #fillstyle
 set tics out nomirror
 set xlabel ""
 set ylabel "Время (секунды)"
 
 plot "data.txt" using 2:xtic(1) with boxes notitle lt rgb "blue"
-#($1,$2):(1.0) smooth freq w boxes lc rgb"green" notitle

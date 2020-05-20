@@ -1,8 +1,8 @@
-name Название
-Python\nnumpy 0.8
-Python\nscipy 1.2
-символьный 2.9
-ℤ_2 0.87
-ℤ_3 0.94
-ℤ_5 1.31
-ℤ_7 1.52
+Python\nnumpy 0.91
+Python\nscipy 1.3
+Python\nsympy 2.9
+ℚ_2           0.98
+ℚ_3           1.02
+ℚ_5           1.04
+ℚ_7           1.03
+ℚ_{23}        1.1

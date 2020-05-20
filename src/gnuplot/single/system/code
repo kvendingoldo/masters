@@ -1,0 +1,26 @@
+set terminal svg size 600,350 enhanced fname 'times' fsize 10 butt solid
+set output 'out.svg'
+
+# general
+set style fill solid 0.75
+set boxwidth 0.95 absolute
+set bmargin 4
+
+# Labels
+set title ""
+set ylabel "Время (секунды)"
+set xlabel ""
+
+# Tics
+set xrange [-0.5:8]
+set yrange [0:6]
+set ytics 0,0.3,6.
+
+
+set xtics ("" 0, "Python\nnumpy" 1, "Python\nscipy" 2, "Python\nsympy" 3, "ℚ_2" 4, "ℚ_3" 5, "ℚ_5" 6, "ℚ_7" 7, "ℚ_{23}" 8)
+set xtic rotate by -15 scale 0 offset character -9,-0.5
+
+set grid
+set style data histograms
+
+plot 'data.txt' u 2 ti "Метод Крамера" lt rgb "blue", '' u 3 ti "метод Гаусса"  lt 1 lc rgb '#CE14F3'
