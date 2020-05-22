@@ -1,3 +1,4 @@
+
 n = 3
 A = Matrix(n, n)
 B = [PAdic("2", 5), PAdic("3", 5), PAdic("3", 5)]

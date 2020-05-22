@@ -3,7 +3,7 @@
 
 from setuptools import setup
 
-setup(name='padic',
+setup(name='p-adic-library',
       version='1.0',
       description='P-adic arithmetic library',
       url='https://github.com/kvendingoldo/masters',

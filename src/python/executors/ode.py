@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+# @Author: Alexander Sharov
+
+import datetime
+
+from padic import *
 from algo.euler import *
 from algo.rk import *
 from matplotlib.pyplot import *
@@ -18,20 +24,21 @@ def f(z, t):
     zout[:] = [z[1], g - alpha * z[1] ** 2]
     return zout
 
-def main():
-    T = 10  # end of simulation
-    N = 20  # no of time steps
+
+def comparasion():
+    T = 10
+    N = 20
     time = np.linspace(0, T, N + 1)
 
     z0 = np.zeros(2)
     z0[0] = 2.0
 
-    zrk4 = rk4(f, z0, time)  # compute response with constant CD using RK4
+    zrk4 = rk4(f, z0, time)
     ze = euler(f, z0, time)
 
     k1 = sqrt(g * 4 * rho_s * d / (3 * rho_f * CD))
     k2 = sqrt(3 * rho_f * g * CD / (4 * rho_s * d))
-    v_a = k1 * np.tanh(k2 * time)  # compute response with constant CD using analytical solution
+    v_a = k1 * np.tanh(k2 * time)
 
     legends = []
     line_type = ['-', ':', '.', '-.', ':', '.', '-.']
@@ -50,4 +57,6 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    print(datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S_%f"))
+    comparasion()
+    print(datetime.datetime.now().strftime("%d_%m_%Y_%H_%M_%S_%f"))
