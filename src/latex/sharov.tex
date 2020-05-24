@@ -1772,23 +1772,23 @@ c_j \beta_{k-1,n-1}+\beta_{k-1,j-1} & (k \textgreater n, j \textgreater 0)
 %Код приложения \verb"task.pl".
 %\VerbatimInput[fontsize=\small, numbers=left, numbersep=2pt]{../python/setup.py}
 
-
+Библиотека для работы с $p$-адической арифметикой имеет структуру модулей представленную на рисунке \ref{img:code:struct}.
 
 \begin{figure}[H]
 \centerline{
-\includegraphics[width=0.4\linewidth]{images/code_struct}}
+\includegraphics[width=0.6\linewidth]{images/code_struct}}
 \caption{Структура пакетов программной реализации библиотеки для работы с $p$-адической арифметикой.}
 \label{img:code:struct}
 \end{figure}
 
 % setup
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Файл дистрибьюции библиотеки]{../python/setup.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Файл дистрибьюции библиотеки.]{../python/setup.py}
 
 % padic
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Класс Padic]{../python/padic/padic.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Класс Padic.]{../python/padic/padic.py}
 
 % matrix
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Класс Matrix]{../python/padic/matrix.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Класс Matrix.]{../python/padic/matrix.py}
 
 % determinant
 \lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Алгоритм вычисления определителя матрицы]{../python/algo/det.py}
@@ -1797,28 +1797,26 @@ c_j \beta_{k-1,n-1}+\beta_{k-1,j-1} & (k \textgreater n, j \textgreater 0)
 \lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Крамера]{../python/algo/cramer.py}
 
 % Gauss
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Гаусса]{../python/algo/gauss.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Гаусса.]{../python/algo/gauss.py}
 
 % Jacoby
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Якоби]{../python/algo/jacoby.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Якоби.]{../python/algo/jacoby.py}
 
 % Euler
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Эйлера]{../python/algo/euler.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Эйлера.]{../python/algo/euler.py}
 
 % R-K
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Рунге-Кутты]{../python/algo/rk.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Метод Рунге-Кутты.]{../python/algo/rk.py}
 
 % utils: runner
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Менеджер для запуска параллельных процессов]{../python/utils/runner.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Менеджер для запуска параллельных процессов.]{../python/utils/runner.py}
 
 % executor: ode
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Функция для сравнения решения ОДУ]{../python/executors/ode.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Функция для сравнения решения ОДУ.]{../python/executors/ode.py}
 
-% executor: sole
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Функция для сравнения решения времени решения СЛАУ]{../python/executors/sole.py}
 
 % generators: matrix
-\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Генератор матрицы для тестов]{../python/generators/matrix.py}
+\lstinputlisting[language=Python, numbers=left, showstringspaces=false, breaklines=true, basicstyle=\small, caption=Генератор матрицы для тестов.]{../python/generators/matrix.py}
 
 \newpage
 \section{Вспомогательные функции для метода Якоби}
