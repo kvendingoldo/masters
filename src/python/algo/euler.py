@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# @Author: Alexander Sharov
+
 import numpy as np
 
 

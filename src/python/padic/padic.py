@@ -10,7 +10,7 @@ class PAdic(object):
     precalculated_primes = (1 << 16)
     is_prime = [False] * precalculated_primes
 
-    # PAdic.do_eratosthene_sieve([False] * precalculated_primes, precalculated_primes)
+    PAdic.do_eratosthene_sieve([False] * precalculated_primes, precalculated_primes)
 
     def __init__(self, number, base, type='SIMPLE'):
         PAdic.check_for_prime(base)
@@ -40,12 +40,6 @@ class PAdic(object):
                     if pos_in_string == point_at:
                         pos_in_string -= 1
                         continue
-
-                    # if (!Character.isDigit(value.charAt(posInString))) {
-                    #   throw new RuntimeException("There can be only digits in the number, no letters or special symbols except of one floating point");
-                    # } else if (value.charAt(posInString) - '0' >= this.base) {
-                    #   throw new RuntimeException("P-adic number cannot contain digits that are greater or equal to base.");
-                    # }
 
                     self.digits[pos_in_digits] = value[pos_in_string]  # - '0'
                     pos_in_string -= 1
@@ -112,7 +106,55 @@ class PAdic(object):
         return self.order == other.order and self.digits == other.digits
 
     def __repr__(self):
-        pass
+        result = ''
+        one_digit_base = self.base <= 7
+        pos = self.limit - 1
+
+        while pos >= 0 and self.digits[pos] == 0:
+            pos -= 1
+
+        if pos == -1:
+            pos += 1
+
+        suffix = "_" if not one_digit_base else ''
+
+        ind = pos
+
+        while ind >= abs(self.order):
+            result = result + str(self.digits[ind]) + suffix
+            ind -= 1
+
+        if self.order < 0:
+            if not one_digit_base and len(result) > 0:
+                result = result[0:len(result) - 1]
+            result = result + '.'
+
+        ind = abs(self.order) - 1
+
+        while ind >= 0:
+            result = result + str(self.digits[ind]) + suffix
+            ind -= 1
+
+        if result[0] == '.':
+            result.insert(0, "0")
+
+        if not result.startswith("0."):
+            pos = 0
+
+            while pos < len(result) and result[pos] == '0':
+                pos += 1
+
+            if pos == len(result):
+                pos -= 1
+
+            tmp_len = len(result)
+            result = result[pos:tmp_len]
+
+        if not one_digit_base:
+            tmp_len = len(result)
+            result = result[0:tmp_len - 1]
+
+        return result
 
     def __str__(self):
         result = ''
@@ -313,7 +355,7 @@ class PAdic(object):
                         self.digits[j] -= 1
                         take_one = False
                     j += 1
-                self.digits[idx] = int(self.digits[idx])+int(self.base)
+                self.digits[idx] = int(self.digits[idx]) + int(self.base)
             result[idx] = int(self.digits[idx]) - int(subtracted.digits[ind])
 
             ind += 1
@@ -403,7 +445,10 @@ class PAdic(object):
         return PAdic(number, self.base, 'SEQUENCE')
 
     def __pos__(self):
-        pass
+        if self.order < 0:
+            return -self
+        else:
+            return self
 
     def __neg__(self):
         pos = 0
