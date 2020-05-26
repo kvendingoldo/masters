@@ -642,6 +642,12 @@
 \cyri\cyrya),\\[12pt]%
 \signature{\@patitle}{\@paname}
 
+% additional (do not included here: https://github.com/mironovsv/SCWorks/blob/master/SCWorks.cls)
+\vfill
+{\centering{\cyr\CYRS\cyra\cyrr\cyra\cyrt\cyro\cyrv\ \@date}
+
+}
+
 \newpage
 \thispagestyle{empty}
 \vspace*{11cm}
