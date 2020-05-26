@@ -1,0 +1,106 @@
+\documentclass[10pt,professionalfont,utf8,presentation,compress]{beamer}
+
+\usepackage{sty/beamer}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{caption}
+\usepackage{graphicx}
+
+%%% Работа с русским языком и шрифтами
+
+%\usepackage{fontspec}
+%\defaultfontfeatures{Ligatures={TeX},Renderer=Basic}
+%\setmainfont[Ligatures={TeX,Historic}]{Myriad Pro}
+%\setsansfont{Myriad Pro}  %  установите шрифты Myriad Pro или (при невозможности) замените здесь на другой шрифт, который есть в системе — например, Arial
+
+%\setmonofont{Courier New}
+\uselanguage{russian}
+\languagepath{russian}
+
+\usepackage{multicol} 		% Несколько колонок
+\graphicspath{{images/}}  	% Папка с картинками
+
+\usepackage{siunitx}
+\usepackage{newtxtext,newtxmath}
+\usepackage{bm}
+
+\setbeamerfont{author}{size=\fontsize{11pt}{12pt}}
+\setbeamerfont{institute}{size=\fontsize{10pt}{11pt}}
+
+
+% информация для титульника и для подписей слайдов
+\title[Приложение $p$-адической арифметики к задачам компьютерной алгебры}
+\author[Шаров Александр Вадимович]{Шаров Александр Вадимович}
+\institute[<<Информатика и вычислительная техника>>]{<<Информатика и вычислительная техника>>}
+\date{29 Мая 2020 г.}
+
+\begin{document}
+
+\frame[plain]{\titlepage}
+
+
+
+\begin{frame}
+\frametitle{$p$-адические числа}
+	some text
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Представления $p$-адических чисел}
+	some text
+\end{frame}
+
+\begin{frame}
+\frametitle{Код Гензеля}
+	some text
+\end{frame}
+
+
+\begin{frame}
+\frametitle{Программная реализация}
+	some text
+\end{frame}
+
+\begin{frame}
+\frametitle{Сравнение производительности: решение СЛАУ}
+	some text
+\end{frame}
+
+\begin{frame}
+\frametitle{Сравнение производительности: вычисление собственных значений и собственных векторов}
+	some text
+\end{frame}
+
+\begin{frame}
+\frametitle{Сравнение производительности: решение ОДУ}
+	some text
+\end{frame}
+
+\begin{frame}
+\frametitle{Сравнение производительности: вычисление СЛАУ}
+	some text
+\end{frame}
+
+
+\begin{frame}[c]
+\begin{center}
+\frametitle{\LARGE Спасибо за внимание!}
+
+{\LARGE \inserttitle}
+
+\bigskip\bigskip
+
+{\large \insertauthor}
+
+\bigskip\bigskip
+
+{\insertinstitute}
+
+\bigskip\bigskip
+
+{\large \insertdate}
+\end{center}
+\end{frame}
+
+\end{document}

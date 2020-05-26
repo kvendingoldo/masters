@@ -1,0 +1,123 @@
+\NeedsTeXFormat{LaTeX2e}
+
+% Имя темы
+\ProvidesPackage{beamertheme}[2018/06/11]
+
+\ProcessOptions
+
+% Делать отступ в начале параграфа
+\RequirePackage{indentfirst}
+\RequirePackage[utf8]{inputenc}
+%\RequirePackage[T2A]{fontenc}
+% Загружает пакет многоязыковой вёрстки
+\RequirePackage[english,russian]{babel}
+% Расширенные наборы  математических символов
+\RequirePackage{amssymb,amsmath,amsfonts,latexsym,mathtext}
+\RequirePackage{amsthm}
+% Улучшенный поиск русских слов в полученном pdf-файле
+\RequirePackage{cmap}
+\RequirePackage{fancyvrb}
+\RequirePackage{xtab}
+
+\RequirePackage[tableposition=top]{caption}
+\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+%\DeclareCaptionLabelSeparator{gost}{~---~}
+\captionsetup[figure]{labelformat=gostfigure, labelsep=gost}
+
+% Включаем Times New Roman
+\renewcommand{\rmdefault}{ftm}
+% Включаем Arial
+%\renewcommand{\sfdefault}{far}
+
+% Font theme
+%\usefonttheme{default}
+
+\setbeamertemplate{navigation symbols}{}    % Comment out to show nav. bar
+\setbeamertemplate{itemize items}[circle]   % Style of bullet points
+%\setbeamertemplate{theorems}[numbered]     % Number objects such as theorems and definitions
+
+\definecolor{TMPLblue}{cmyk}{1,0.66,0,0.02}        % Pantone 286
+\definecolor{TMPLgreen}{cmyk}{0.69,0,1,0}          % Pantone 361
+\definecolor{TMPLred}{cmyk}{0,0.95,1,0.29}         % Pantone 484
+\definecolor{TMPLorange}{cmyk}{0,0.42,0.77,0}      % Pantone 131
+\setbeamercolor{WhiteOnBlue}{bg=TMPLblue,fg=white} % White on Pantone 286
+\setbeamercolor{BlueOnWhite}{fg=TMPLblue,bg=white} % Pantone 286 on White
+
+\usepackage{hyperref}
+\hypersetup{
+    unicode=true,          % non-Latin characters in Acrobat’s bookmarks
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=white,       % color of internal links (change box color with linkbordercolor)
+    citecolor=TMPLblue,     % color of links to bibliography
+    filecolor=TMPLblue,     % color of file links
+    urlcolor=TMPLblue       % color of external links
+}
+
+%%% Set color of different objects (see Beamer User Guide for more info)
+\usecolortheme[named=TMPLblue]{structure}
+\setbeamercolor{background canvas}{bg=white}
+\setbeamercolor{frametitle}{bg=TMPLblue}
+\setbeamercolor{frametitle}{fg=white}
+\setbeamercolor{headline}{bg=TMPLblue}
+\setbeamercolor{alerted text}{fg=TMPLred}
+\setbeamercolor{itemize item}{fg=TMPLblue}
+\setbeamercolor{itemize subitem}{fg=TMPLblue}
+\setbeamercolor{itemize subsubitem}{fg=TMPLblue}
+\setbeamercolor{block title example}{fg=TMPLgreen}
+\AtBeginEnvironment{exampleblock}{
+    \setbeamercolor{itemize item}{fg=TMPLgreen}
+    \setbeamercolor{itemize subitem}{fg=TMPLgreen}
+    \setbeamercolor{itemize subsubitem}{fg=TMPLgreen}
+                                 }
+\setbeamercolor{palette primary}{bg=TMPLblue}
+\setbeamercolor{palette primary}{fg=white}
+\setbeamercolor{palette secondary}{bg=TMPLblue}
+\setbeamercolor{palette secondary}{fg=white}
+\setbeamercolor{palette tertiary}{bg=TMPLblue}
+\setbeamercolor{palette tertiary}{fg=white}
+
+%%% Layout issues
+\setbeamertemplate{headline}[default]{} % Empty headline
+\setbeamertemplate{frametitle} % Frametitle with logo
+{
+    \nointerlineskip
+    \begin{beamercolorbox}[sep=0.3cm,wd=\paperwidth]{frametitle}
+		\vbox{}\vskip-0.7ex
+ 		\strut\insertframetitle
+
+ 		\small\strut\insertframesubtitle
+		\vskip-1ex%
+    \end{beamercolorbox}
+}
+
+\makeatletter
+\setbeamertemplate{footline} % Footline
+{
+  \leavevmode%
+  \hbox{%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2ex,dp=1ex,center]{WhiteOnBlue}%
+    \usebeamerfont{author in head/foot}\insertshortauthor
+  \end{beamercolorbox}%
+  %\begin{beamercolorbox}[wd=.333333\paperwidth,ht=2ex,dp=1ex,center]{WhiteOnBlue}%
+  %  \usebeamerfont{title in head/foot}\insertshortinstitute
+  \begin{beamercolorbox}[wd=.5\paperwidth,ht=2ex,dp=1ex,center]{WhiteOnBlue}%
+    \usebeamerfont{title in head/foot}\insertshorttitle
+  \end{beamercolorbox}%
+  \begin{beamercolorbox}[wd=.25\paperwidth,ht=2ex,dp=1ex,right]{WhiteOnBlue}%
+    \usebeamerfont{date in head/foot}\insertshortdate{}\hspace*{2em}
+    \insertframenumber{} / \inserttotalframenumber\hspace*{2ex}
+  \end{beamercolorbox}}%
+  \vskip0pt%
+}
+\makeatother
+
+\addtobeamertemplate{title page}{%
+  \leavevmode%
+  \vspace{-.23cm}
+  \hbox{%
+    \begin{beamercolorbox}[wd=\paperwidth,ht=0.3\paperheight]{frametitle}
+      \begin{center}
+        \vspace{-0.025\paperheight}
+      \end{center}
+   \end{beamercolorbox}}
+}{\vspace{3cm}}
