@@ -21,12 +21,21 @@
 \RequirePackage{float,caption,graphicx}
 
 \RequirePackage[tableposition=top]{caption}
-\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
+%\DeclareCaptionLabelFormat{gostfigure}{Рисунок #2}
 %\DeclareCaptionLabelSeparator{gost}{~---~}
-\captionsetup[figure]{labelformat=gostfigure, labelsep=gost}
+%\captionsetup[figure]{labelformat=gostfigure, labelsep=gost}
+
+\def\CaptionName#1{\gdef\@captionname{#1}}
+\newlength\tmp %10cm
+\setlength{\tmp}{1ex}
+\setlength{\belowcaptionskip}{1ex}
+\setlength{\abovecaptionskip}{1ex}
+\captionsetup[figure]{name=\CYRR\cyri\cyrs\cyru\cyrn\cyro\cyrk, labelsep=endash,
+                justification=centering, font={small}, skip=\abovecaptionskip, position=below}
 
 % Включаем Times New Roman
 \renewcommand{\rmdefault}{ftm}
+%\renewcommand{\scaleUnivName}{1.0}
 % Включаем Arial
 %\renewcommand{\sfdefault}{far}
 
