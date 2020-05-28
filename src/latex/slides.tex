@@ -12,6 +12,9 @@
 \usepackage{newtxtext,newtxmath}
 \usepackage{bm}
 
+\usepackage{longtable,rotating}
+\usepackage{threeparttable}
+
 % для картинок
 \usepackage{chngcntr}
 %\counterwithin{figure}{section}
@@ -46,7 +49,7 @@
 % информация для титульника и для подписей слайдов
 \title[Приложения $p$-адической арифметики]
 {Приложение $p$-адической арифметики к задачам компьютерной алгебры}
-\author{А.~В.~Шаров}
+\author{Шаров Александр Вадимович}
 \institute{{Саратовский государственный университет} \\
     им.~Н.~Г.~Чернышевского \\[5pt]
 Кафедра дискретной математики\\[5pt]
@@ -66,24 +69,22 @@
     \Large
     \begin{enumerate}
         \item Дать алгоритмическое описание $p$-адической арифметики и реализовать библиотеку для работы с объектами компьютерной алгебры на ЯП Python с её применением.
-        \item Привести примеры применения реализованной библиотеки для популярных задач физики и математики.
+        \item Привести примеры использования реализованной библиотеки для популярных задач физики и математики.
        	\item Провести сравнение библиотеки для работы с $p$-адической арифметикой с классическими методами.
     \end{enumerate}
 \end{frame}
 
 
-
+% Слайд 3
 \begin{frame}
 \frametitle{$p$-адические числа}
 
 \begin{defn}
 Пусть $p \in \mathbb {P}$ -- некоторое простое число. В поле $\mathbb {Q}$ введем другую норму $\norm{.}_p$ по правилу:
-
 \begin{enumerate}
 	\item $\norm{0}_p = 0$,
 	\item $\norm{n}_p = p ^ {-ord_pn}$,
 \end{enumerate}
-
 \noindent где $n > 0$ - некоторое натуральное число, а $ord_pn$ - показатель степени, в которой число $p$ входит в это произведение. В этом случае норма $\norm{.}_p$ называется \mbox{$p$-адической} нормой.
 \end{defn}
 
@@ -94,7 +95,7 @@
 \end{frame}
 
 
-
+% Слайд 4
 \begin{frame}
 \frametitle{$p$-адические числа}
 \begin{defn}
@@ -108,6 +109,8 @@
 \end{defn}
 \end{frame}
 
+
+% Слайд 5
 \begin{frame}
 \frametitle{$p$-адические числа: пример сложения чисел}
 
@@ -133,11 +136,12 @@ $$
 \end{tabular}
 $$
 
-\noindent В свою очередь $(\frac{3}{2})_5=.4222222\dots$
+\noindent В свою очередь $\bigg(\frac{3}{2}\bigg)_5=.4222222\dots$
 \end{exmp}
 \end{frame}
 
 
+% Слайд 6
 \begin{frame}
 \frametitle{$p$-адические числа: код Гензеля}
 \begin{defn}
@@ -145,6 +149,8 @@ $$
 \end{defn}
 \end{frame}
 
+
+% Слайд 7
 \begin{frame}
 \frametitle{$p$-адические числа: код Гензеля}
 \begin{exmp}
@@ -152,27 +158,37 @@ $$
 
 \noindent Код Гензеля для операндов имеет следующий вид:
 
-$$H\bigg(5,4, \frac{3}{4}\bigg)=(.\; 2\; 1\; 1\; 1,\; 0)$$
+$$H\bigg(5,4, \frac{3}{4}\bigg)=(.\; 2\; 1\; 1\; 1)$$
 
-$$H\bigg(5,4, \frac{3}{2}\bigg)=(.\; 4\; 2\; 2\; 2,\; 0)$$
+$$H\bigg(5,4, \frac{3}{2}\bigg)=(.\; 4\; 2\; 2\; 2)$$
 
 
 \noindent Произведем вычитание:
 
 $$
 \begin{tabular}{ccccccccccc}
-& - & .\; & 2\; & 1\; & 1\; & 1\; & ,\; & 0\; &  \\
-& = & .\; & 4 \; & 2\; & 2\; & 2\; & ,\; & 0\; &  \\
+& - & .\; & 2\; & 1\; & 1\; & 1\;  &  \\
+& = & .\; & 4 \; & 2\; & 2\; & 2\; &  \\
 \hline
-& = & .\; & 3\; & 3\; & 3\; & 3\; & ,\; & 0\; &
+& = & .\; & 3\; & 3\; & 3\; & 3\; &
 \end{tabular}
 $$
 
-\noindent Таким образом, результатом будет код Гензеля $(.\; 3\; 3\; 3\; 3,\; 0)$, который представляет собой рациональное число $-\frac{3}{4}$.
+\noindent Таким образом, результатом является код Гензеля $(.\; 3\; 3\; 3\; 3)$, который представляет собой рациональное число $-\frac{3}{4}$.
 \end{exmp}
 \end{frame}
 
 
+% Слайд 8
+\begin{frame}
+\frametitle{Программная реализация}
+	\begin{figure}[H]
+	\centerline{\includegraphics[width=0.5\linewidth]{images/python.png}}
+	\end{figure}
+\end{frame}
+
+
+% Слайд 9
 \begin{frame}
 \frametitle{Программная реализация: состав модулей библиотеки}
 \begin{itemize}
@@ -183,6 +199,23 @@ $$
 \end{frame}
 
 
+% Слайд 10
+\begin{frame}
+\frametitle{Описание матрицы для сравнения производительности}
+
+$A: \dim{A} = 1000$ и коэфициенты вычисляются следующим образом:
+
+\begin{equation}
+a_{i,j}=
+\begin{cases}
+1-\bigg(round\bigg(\frac{i-j}{n}\bigg)\bigg)^2, \; i \neq j, \\
+10-round\bigg(\frac{i-j}{n}\bigg), \; i = j.
+\end{cases}
+\end{equation}
+\end{frame}
+
+
+% Слайд 11
 \begin{frame}
 \frametitle{Сравнение производительности: вычисление определителя}
 \begin{figure}[H]
@@ -192,6 +225,8 @@ $$
 \end{figure}
 \end{frame}
 
+
+% Слайд 12
 \begin{frame}
 \frametitle{Сравнение производительности: вычисление определителя}
 \begin{figure}[H]
@@ -201,6 +236,32 @@ $$
 \end{figure}
 \end{frame}
 
+
+% Слайд 13
+\begin{frame}
+\frametitle{Сравнение производительности: решение СЛАУ}
+Для сравнения производительности классического и $p$-адического метода решения СЛАУ решим $m$ раз систему из $n$ уравнений:
+
+\begin{equation}
+\boldsymbol{A}*\boldsymbol{X}=\boldsymbol{B},
+\end{equation}
+
+\noindent где $\boldsymbol{A}$ - матрица коэффициентов размером $n \times n$, $\boldsymbol{X}$ - вектор неизвестных и $\boldsymbol{B}$ - вектор правых частей.
+Пусть коэффициенты матрицы $\boldsymbol{A}$ вычисляются следующим образом:
+
+\begin{equation}
+a_{i,j}=
+\begin{cases}
+\abs{1-rand(n)*round\bigg(i-j\bigg)^2}, i \neq j, \\
+10, i = j,
+\end{cases}
+\end{equation}
+
+\noindent где |rand(n)| -- некоторое случайное число в диапазоне от $0$ до $n$.
+\end{frame}
+
+
+% Слайд 14
 \begin{frame}
 \frametitle{Сравнение производительности: решение СЛАУ}
 \begin{figure}[H]
@@ -210,6 +271,8 @@ $$
 \end{figure}
 \end{frame}
 
+
+% Слайд 15
 \begin{frame}
 \frametitle{Сравнение производительности: решение СЛАУ}
 \begin{figure}[H]
@@ -219,6 +282,19 @@ $$
 \end{figure}
 \end{frame}
 
+
+% Слайд 16
+\begin{frame}
+\frametitle{Многопоточный алгоритм для работы с $p$-адической арифметики}
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.5\linewidth]{images/multi/schema.png}}
+\caption{Китайская теорема об остатках, скомбинированная с $p$-адической арифметикой.}
+\label{img:multi:schema}
+\end{figure}
+\end{frame}
+
+
+% Слайд 17
 \begin{frame}
 \frametitle{Сравнение производительности: СЛАУ}
 \begin{figure}[H]
@@ -228,34 +304,77 @@ $$
 \end{figure}
 \end{frame}
 
+
+% Слайд 18
 \begin{frame}
 \frametitle{Сравнение производительности: нахождение собственных чисел и векторов}
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.95\linewidth]{../gnuplot/multi/jacoby/plot.png}}
-\caption{Сравнение методов для нахождения собственных чисел и собственных векторов матрицы.}
+\caption{Сравнение методов нахождения собственных чисел и собственных векторов матрицы.}
 \label{img:multi:jacoby}
 \end{figure}
-
 \end{frame}
 
+
+% Слайд 19
+\begin{frame}
+\frametitle{Сравнение производительности: решение ОДУ}
+\begin{equation}
+\begin{aligned}
+\dfrac{\partial z}{ \partial t} = v, \\
+\dfrac{\partial v}{ \partial t} = g - \alpha v^2, \\
+\alpha = \frac{3\rho_f}{4\rho_k d}C_d.
+\end{aligned}
+\end{equation}
+\noindent Аналитическое решение данного уравнения при $z(0)=0$ и $v(0)=0$ представляет собой следующие функции:
+
+\begin{equation}
+\begin{aligned}
+z(t)=\frac{\log{(\cosh{(\sqrt{\alpha g} \cdot t})})}{\alpha}, \\
+v(t)=\sqrt{\frac{g}{\alpha}} \cdot \tanh{(\sqrt{\alpha g} \cdot t)}.
+\end{aligned}
+\end{equation}
+\end{frame}
+
+
+% Слайд 20
+\begin{frame}
+\frametitle{Сравнение производительности: решение ОДУ}
+В качестве физических параметров для эксперимента будем использовать параметры стандартного мяча для гольфа:
+\begin{threeparttable}
+\begin{longtable}[H]{lp{0.7\linewidth}}
+{$d$} -- диаметр шара & 41 [мм] \\
+{$\rho_k$} -- плотность сферы & 1275 [кг/м\textsuperscript{3}] \\
+{$\rho_f$} -- плотность жидкости & 1.22 [кг/м\textsuperscript{3}] \\
+{$C_d$} -- коэффициент трения & 0.4
+\end{longtable}
+\end{threeparttable}
+\end{frame}
+
+
+% Слайд 21
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.95\linewidth]{../gnuplot/multi/euler/plot.png}}
-\caption{Сравнение методов для нахождения численного решения ОДУ с помощью метода Эйлера.}
+\caption{Сравнение методов нахождения численного решения ОДУ с помощью метода Эйлера.}
 \label{img:multi:ode:euler}
 \end{figure}
 \end{frame}
 
+
+% Слайд 22
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.95\linewidth]{../gnuplot/multi/rk/plot.png}}
-\caption{Сравнение методов для нахождения решения ОДУ с помощью метода Рунге-Кутты 4-го порядка.}
+\caption{Сравнение методов нахождения решения ОДУ с помощью метода Рунге-Кутты 4-го порядка.}
 \label{img:comp:ode:rk}
 \end{figure}
 \end{frame}
 
+
+% Слайд 23
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 \begin{figure}[H]
@@ -266,6 +385,26 @@ $$
 \end{frame}
 
 
+% Слайд 24
+\begin{frame}
+\frametitle{Сравнение производительности: вычисление матричной экспоненты}
+\begin{defn}\label{def:exp}
+Экспонентой от матрицы $A$ называется матрица
+
+\begin{equation}
+e^A=I+A+\frac{1}{2!}A^2+\cdots++\frac{1}{n!}A^n + \cdots,
+\end{equation}
+
+\noindent соответственно
+
+\begin{equation}
+e^{At}=I+tA+\frac{t^2}{2!}A^2+\cdots++\frac{t^n}{n!}A^n + \cdots.
+\end{equation}
+\end{defn}
+\end{frame}
+
+
+% Слайд 25
 \begin{frame}
 \frametitle{Сравнение производительности: вычисление матричной экспоненты}
 \begin{figure}[H]
@@ -275,12 +414,6 @@ $$
 \end{figure}
 \end{frame}
 
-
-\begin{frame}
-\frametitle{Сравнение производительности: вычисление определителя}
-	технический слайд, будет удален
-	some text\cite{bib:algebra:1}\cite{bib:analisys:khrennikov:1}\cite{bib:analisys:khrennikov:2}\cite{bib:analisys:vv}\cite{bib:analysis:baker}\cite{bib:analysis:vladimirov}.
-\end{frame}
 
 % Описание результатов курсовой работы - обязательный слайд
 \begin{frame}
@@ -293,6 +426,7 @@ $$
 
 \begin{frame}[allowframebreaks]
 \frametitle{Список использованных источников}
+\nocite{*}
 \bibliographystyle{biblio/ugost}
 \bibliography{biblio/biblio}
 \end{frame}
