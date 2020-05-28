@@ -635,12 +635,7 @@
 \cyrr\cyra\cyrk\cyrt\cyri\cyrk\cyri\ \cyro\cyrt\ \cyru\cyrn\cyri\cyrv%
 \cyre\cyrr\cyrs\cyri\cyrt\cyre\cyrt\cyra,\\[12pt]%
 \signature{\@satitle}{\@saname}\\[14pt]
-\CYRR\cyru\cyrk\cyro\cyrv\cyro\cyrd\cyri\cyrt\cyre\cyrl\cyrsftsn\ \cyrp%
-\cyrr\cyra\cyrk\cyrt\cyri\cyrk\cyri\ \cyro\cyrt\ \cyro\cyrr\cyrg\cyra%
-\cyrn\cyri\cyrz\cyra\cyrc\cyri\cyri\ (\cyru\cyrch\cyrr\cyre\cyrzh\cyrd%
-\cyre\cyrn\cyri\cyrya, \cyrp\cyrr\cyre\cyrd\cyrp\cyrr\cyri\cyrya\cyrt%
-\cyri\cyrya),\\[12pt]%
-\signature{\@patitle}{\@paname}
+
 
 % additional (do not included here: https://github.com/mironovsv/SCWorks/blob/master/SCWorks.cls)
 \vfill
