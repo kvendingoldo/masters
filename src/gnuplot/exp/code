@@ -9,9 +9,9 @@ set key inside bottom right
 set xlabel 'Размер матрицы'
 set ylabel 'Время (секунды)'
 
-set xrange [100 : 1000]
-set yrange [0 : 7]
-set ytics 0,0.5,7
+set xrange [100 : 500]
+set yrange [0 : 4.5]
+set ytics 0,0.5,4.5
 set xtics 0,50,1000
 
 set grid
