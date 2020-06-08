@@ -22,14 +22,16 @@
 \setbeamerfont{author}{size=\fontsize{11pt}{12pt}}
 \setbeamerfont{institute}{size=\fontsize{10pt}{11pt}}
 
-\setbeamertemplate{bibliography item}{\insertbiblabel}
-
 \setbeamertemplate{theorem}[ams style]
 \setbeamertemplate{theorems}[numbered]
 
 \setbeamertemplate{caption}[numbered]
 
-
+\setbeamertemplate{bibliography item}{\insertbiblabel}
+\setbeamertemplate{bibliography entry article}{}
+\setbeamertemplate{bibliography entry title}{}
+\setbeamertemplate{bibliography entry location}{}
+\setbeamertemplate{bibliography entry note}{}
 
 \setbeamerfont{bibliography entry author}{size=\footnotesize}
 \setbeamerfont{bibliography entry title}{size=\footnotesize}
@@ -55,7 +57,7 @@
 Кафедра дискретной математики\\[5pt]
 Научный руководитель: к.~ф.-м.~н., доцент Тяпаев~Л.~Б.
 }
-\date{29 Мая 2020 г.}
+\date{18 Июня 2020 г.}
 
 
 \begin{document}
@@ -319,7 +321,7 @@ a_{i,j}=
 
 % Слайд 18
 \begin{frame}
-\frametitle{Сравнение производительности: нахождение собственных чисел и векторов}
+\frametitle{Сравнение производительности: нахождение собственных чисел и векторов (метод Якоби)}
 \begin{figure}[H]
 \centerline{\includegraphics[width=0.95\linewidth]{../gnuplot/multi/jacoby/plot.png}}
 \caption{Сравнение методов нахождения собственных чисел и собственных векторов матрицы.}
@@ -329,6 +331,17 @@ a_{i,j}=
 
 
 % Слайд 19
+\begin{frame}
+\frametitle{Сравнение производительности: нахождение собственных чисел и векторов (метод Ланцоша)}
+\begin{figure}[H]
+\centerline{\includegraphics[width=0.95\linewidth]{../gnuplot/multi/lanczos/plot.png}}
+\caption{Сравнение производительности классического и $p$-адического алгоритма Ланцоша.}
+\label{img:multi:lanczos}
+\end{figure}
+\end{frame}
+
+
+% Слайд 20
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 \begin{equation}
@@ -349,7 +362,7 @@ v(t)=\sqrt{\frac{g}{\alpha}} \cdot \tanh{(\sqrt{\alpha g} \cdot t)}.
 \end{frame}
 
 
-% Слайд 20
+% Слайд 21
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 В качестве физических параметров для эксперимента будем использовать параметры стандартного мяча для гольфа:
@@ -364,7 +377,7 @@ v(t)=\sqrt{\frac{g}{\alpha}} \cdot \tanh{(\sqrt{\alpha g} \cdot t)}.
 \end{frame}
 
 
-% Слайд 21
+% Слайд 22
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 \begin{figure}[H]
@@ -375,7 +388,7 @@ v(t)=\sqrt{\frac{g}{\alpha}} \cdot \tanh{(\sqrt{\alpha g} \cdot t)}.
 \end{frame}
 
 
-% Слайд 22
+% Слайд 23
 \begin{frame}
 \frametitle{Сравнение производительности: решение ОДУ}
 \begin{figure}[H]
@@ -442,7 +455,6 @@ e^{At}=I+tA+\frac{t^2}{2!}A^2+\cdots++\frac{t^n}{n!}A^n + \cdots.
 \bibliographystyle{biblio/ugost}
 \bibliography{biblio/biblio}
 \end{frame}
-
 
 
 \begin{frame}[c]
