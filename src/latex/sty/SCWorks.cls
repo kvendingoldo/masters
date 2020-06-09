@@ -45,6 +45,7 @@
 \def\critictitle#1{\gdef\@critictitle{#1}}\critictitle{\hbox to 3cm{\hrulefill}}
 \def\criticname#1{\gdef\@criticname{#1}}\criticname{\hbox to 3cm{\hrulefill}}
 \def\secrname#1{\gdef\@secrname{#1}}\secrname{\hbox to 3cm{\hrulefill}}
+\def\myname#1{\gdef\@myname{#1}}\myname{\hbox to 3cm{\hrulefill}}
 \def\chtitle#1{\gdef\@chtitle{#1}}\chtitle{\hbox to 3cm{\hrulefill}}
 \def\chname#1{\gdef\@chname{#1}}\chname{\hbox to 3cm{\hrulefill}}
 %\def\year#1{\gdef\@year{#1}}
@@ -247,7 +248,7 @@
         \vspace{1em}
         \noindent\raggedright
         \inlinesignature{\CYRZ\cyra\cyrd\cyra\cyrn\cyri\cyre\ \cyrp\cyro\cyrl%
-        \cyru\cyrch\cyri\cyrl}{\hbox to 3cm{\hrulefill}}
+        \cyru\cyrch\cyri\cyrl}{\@myname}
 
         \vspace{1cm}
     }
