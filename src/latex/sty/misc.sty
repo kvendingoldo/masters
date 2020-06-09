@@ -1,0 +1,25 @@
+%\newcommand\sources[1][]{\starsection{ОСНОВНЫЕ ИСТОЧНИКИ ИНФОРМАЦИИ}}
+
+
+\renewenvironment{thebibliography}[1]
+{
+  \starsection{\cyr\CYRO\CYRS\CYRN\CYRO\CYRV\CYRN\CYRERY\CYRE\ \CYRI\CYRS\CYRP\CYRO\CYRL%
+  \CYRSFTSN\CYRZ\CYRO\CYRV\CYRA\CYRN\CYRN\CYRERY\CYRE\ \CYRI\CYRS\CYRT%
+  \CYRO\CYRCH\CYRN\CYRI\CYRK\CYRI}
+  \list{\@biblabel{\@arabic\c@enumiv}}%
+  {\settowidth\labelwidth{\@biblabel{#1}}%
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \setlength{\itemsep}{0pt}
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}}%
+  \sloppy
+  \clubpenalty4000
+  \@clubpenalty \clubpenalty
+  \widowpenalty4000%
+  \sfcode`\.\@m}
+{\def\@noitemerr
+  {\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist}
